@@ -1,4 +1,5 @@
-﻿using Bookstore.Domain.Addresses;
+using System;
+using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
 using Bookstore.Domain.Customers;
@@ -11,6 +12,11 @@ namespace Bookstore.Data
 {
     public partial class ApplicationDbContext : DbContext
     {
+        static ApplicationDbContext()
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        }
+
         public ApplicationDbContext() { }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
@@ -35,6 +41,24 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Table mappings for PostgreSQL
+            modelBuilder.Entity<Address>().ToTable("Address", "dbo");
+            modelBuilder.Entity<Book>().ToTable("Book", "dbo");
+            modelBuilder.Entity<Customer>().ToTable("Customer", "dbo");
+            modelBuilder.Entity<Order>().ToTable("Order", "dbo");
+            modelBuilder.Entity<ShoppingCart>().ToTable("ShoppingCart", "dbo");
+            modelBuilder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItem", "dbo");
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItem", "dbo");
+            modelBuilder.Entity<Offer>().ToTable("Offer", "dbo");
+            modelBuilder.Entity<ReferenceDataItem>().ToTable("ReferenceData", "dbo");
+
+            // Boolean to integer conversions for PostgreSQL
+            modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
+            modelBuilder.Entity<Book>().Property(e => e.IsInStock).HasConversion<int>();
+            modelBuilder.Entity<Book>().Property(e => e.IsLowInStock).HasConversion<int>();
+            modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
+
+            // Existing configurations preserved
             modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
 
             modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
