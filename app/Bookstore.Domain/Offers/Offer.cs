@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.Customers;
 using Bookstore.Domain.ReferenceData;
 
