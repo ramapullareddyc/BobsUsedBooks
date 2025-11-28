@@ -4,7 +4,7 @@ using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Offers
 {
-    [Table("Offer", Schema = "dbo")]
+    [Table("Offer", Schema = "public")]
     public class Offer : Entity
     {
         public Offer(
