@@ -1,32 +1,31 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Domain.Customers
 {
-    [Table("customers", Schema = "public")]
+    [Table("Customer", Schema = "dbo")]
     public class Customer : Entity
     {
-        [Column("sub")]
+        [Column("Sub")]
         public string Sub { get; set; }
 
-        [Column("username")]
+        [Column("Username")]
         public string? Username { get; set; }
 
-        [Column("first_name")]
+        [Column("FirstName")]
         public string? FirstName { get; set; }
 
-        [Column("last_name")]
+        [Column("LastName")]
         public string? LastName { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 
-        [Column("email")]
+        [Column("Email")]
         public string? Email { get; set; }
 
-        [Column("date_of_birth")]
+        [Column("DateOfBirth")]
         public DateTime? DateOfBirth { get; set; }
 
-        [Column("phone")]
+        [Column("Phone")]
         public string? Phone { get; set; }
     }
 }
