@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿using System.ComponentModel.DataAnnotations.Schema;
 namespace Bookstore.Domain.Carts
 {
     [Table("ShoppingCart", Schema = "dbo")]
