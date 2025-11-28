@@ -30,7 +30,7 @@ namespace Bookstore.Domain.Orders
         public IEnumerable<OrderItem> OrderItems => orderItems;
 
         [Column("DeliveryDate")]
-        public DateTime DeliveryDate { get; set; } = DateTime.Now.AddDays(7);
+        public DateTime DeliveryDate { get; set; } = DateTime.UtcNow.AddDays(7);
 
         [Column("OrderStatus")]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;

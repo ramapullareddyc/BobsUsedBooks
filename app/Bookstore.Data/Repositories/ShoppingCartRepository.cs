@@ -1,4 +1,4 @@
-using Bookstore.Domain.Carts;
+﻿using Bookstore.Domain.Carts;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -15,12 +15,12 @@ namespace Bookstore.Data.Repositories
 
         async Task IShoppingCartRepository.AddAsync(ShoppingCart shoppingCart)
         {
-            await dbContext.Set<ShoppingCart>().AddAsync(shoppingCart);
+            await dbContext.ShoppingCart.AddAsync(shoppingCart);
         }
 
         async Task<ShoppingCart> IShoppingCartRepository.GetAsync(string correlationId)
         {
-            return await dbContext.Set<ShoppingCart>()
+            return await dbContext.ShoppingCart
                 .Include(x => x.ShoppingCartItems)
                 .ThenInclude(x => x.Book)
                 .SingleOrDefaultAsync(x => x.CorrelationId == correlationId);

@@ -1,4 +1,4 @@
-using Bookstore.Domain;
+﻿using Bookstore.Domain;
 using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +22,7 @@ namespace Bookstore.Data.Repositories
         {
             var startOfMonth = DateTime.UtcNow.StartOfMonth();
 
-            return await dbContext.Set<Offer>()
+            return await dbContext.Offer
                 .GroupBy(x => 1)
                 .Select(x => new OfferStatistics
                 {
@@ -34,17 +34,17 @@ namespace Bookstore.Data.Repositories
 
         async Task IOfferRepository.AddAsync(Offer offer)
         {
-            await dbContext.Set<Offer>().AddAsync(offer);
+            await dbContext.Offer.AddAsync(offer);
         }
 
         Task<Offer> IOfferRepository.GetAsync(int id)
         {
-            return dbContext.Set<Offer>().Include(x => x.Customer).SingleOrDefaultAsync(x => x.Id == id);
+            return dbContext.Offer.Include(x => x.Customer).SingleOrDefaultAsync(x => x.Id == id);
         }
 
         async Task<IPaginatedList<Offer>> IOfferRepository.ListAsync(OfferFilters filters, int pageIndex, int pageSize)
         {
-            var query = dbContext.Set<Offer>().AsQueryable();
+            var query = dbContext.Offer.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filters.Author))
             {
@@ -82,7 +82,7 @@ namespace Bookstore.Data.Repositories
 
         async Task<IEnumerable<Offer>> IOfferRepository.ListAsync(string sub)
         {
-            return await dbContext.Set<Offer>()
+            return await dbContext.Offer
                 .Include(x => x.BookType)
                 .Include(x => x.Genre)
                 .Include(x => x.Condition)
