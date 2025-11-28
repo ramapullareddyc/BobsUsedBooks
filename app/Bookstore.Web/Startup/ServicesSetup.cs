@@ -89,7 +89,7 @@ namespace Bookstore.Web.Startup
 //                    PropertyNameCaseInsensitive = true
 //                });
 //
-//                var partialConnString = $"Host={dbSecrets.Host};Port={dbSecrets.Port};Database=postgres";
+//                var partialConnString = $"Host={dbSecrets.Host};Port={dbSecrets.Port};Database=postgres;";
 //
 //                var builder = new NpgsqlConnectionStringBuilder(partialConnString)
 //                {
