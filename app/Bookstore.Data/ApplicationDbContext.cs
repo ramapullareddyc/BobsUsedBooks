@@ -1,4 +1,5 @@
-﻿using Bookstore.Domain.Addresses;
+﻿using System;
+using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
 using Bookstore.Domain.Customers;
@@ -6,7 +7,7 @@ using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace Bookstore.Data
 {
@@ -41,63 +42,35 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Table and column mappings for PostgreSQL
-            modelBuilder.Entity<Address>(entity =>
-            {
-                entity.ToTable("Address", "dbo");
-                entity.Property(e => e.IsActive).HasConversion<int>();
-            });
+            // Table mappings
+            modelBuilder.Entity<Address>().ToTable("Address", "dbo");
+            modelBuilder.Entity<Book>().ToTable("Book", "dbo");
+            modelBuilder.Entity<Customer>().ToTable("Customer", "dbo");
+            modelBuilder.Entity<Order>().ToTable("Order", "dbo");
+            modelBuilder.Entity<ShoppingCart>().ToTable("ShoppingCart", "dbo");
+            modelBuilder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItem", "dbo");
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItem", "dbo");
+            modelBuilder.Entity<Offer>().ToTable("Offer", "dbo");
+            modelBuilder.Entity<ReferenceDataItem>().ToTable("ReferenceData", "dbo");
 
-            modelBuilder.Entity<Book>(entity =>
-            {
-                entity.ToTable("Book", "dbo");
-                entity.HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
-            });
+            // Boolean property conversions for PostgreSQL
+            modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
+            modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
 
-            modelBuilder.Entity<Customer>(entity =>
-            {
-                entity.ToTable("Customer", "dbo");
-                entity.HasIndex(x => x.Sub).IsUnique();
-            });
+            // Existing relationship configurations
+            modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
 
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.ToTable("Order", "dbo");
-                entity.HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
-            });
+            modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Book>().HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Book>().HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Book>().HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<OrderItem>(entity =>
-            {
-                entity.ToTable("OrderItem", "dbo");
-            });
+            modelBuilder.Entity<Offer>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Offer>().HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Offer>().HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Offer>().HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<ShoppingCart>(entity =>
-            {
-                entity.ToTable("ShoppingCart", "dbo");
-            });
-
-            modelBuilder.Entity<ShoppingCartItem>(entity =>
-            {
-                entity.ToTable("ShoppingCartItem", "dbo");
-                entity.Property(e => e.WantToBuy).HasConversion<int>();
-            });
-
-            modelBuilder.Entity<Offer>(entity =>
-            {
-                entity.ToTable("Offer", "dbo");
-                entity.HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<ReferenceDataItem>(entity =>
-            {
-                entity.ToTable("ReferenceData", "dbo");
-            });
+            modelBuilder.Entity<Order>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
 
             PopulateDatabase(modelBuilder);
 

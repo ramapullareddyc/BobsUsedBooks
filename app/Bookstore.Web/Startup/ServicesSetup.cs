@@ -1,4 +1,4 @@
-﻿using Amazon.Rekognition;
+using Amazon.Rekognition;
 using Amazon.S3;
 using Amazon.SecretsManager.Model;
 using Amazon.SecretsManager;
@@ -90,9 +90,9 @@ namespace Bookstore.Web.Startup
 //                    PropertyNameCaseInsensitive = true
 //                });
 //
-//                var partialConnString = $"Host={dbSecrets.Host};Port={dbSecrets.Port};Database=BobsUsedBookStore";
+//                var partialConnString = $"Server={dbSecrets.Host},{dbSecrets.Port}; Initial Catalog=BobsUsedBookStore;MultipleActiveResultSets=true; Integrated Security=false";
 //
-//                var builder = new NpgsqlConnectionStringBuilder(partialConnString)
+//                var builder = new SqlConnectionStringBuilder(partialConnString)
 //                {
 //                    UserID = dbSecrets.Username,
 //                    Password = dbSecrets.Password
