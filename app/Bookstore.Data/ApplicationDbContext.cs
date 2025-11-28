@@ -42,59 +42,12 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure table mappings with schema for all entities
-            modelBuilder.Entity<Address>(entity =>
-            {
-                entity.ToTable("Address", "dbo");
-            });
-
-            modelBuilder.Entity<Book>(entity =>
-            {
-                entity.ToTable("Book", "dbo");
-            });
-
-            modelBuilder.Entity<Customer>(entity =>
-            {
-                entity.ToTable("Customer", "dbo");
-                entity.HasIndex(x => x.Sub).IsUnique();
-            });
-
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.ToTable("Order", "dbo");
-            });
-
-            modelBuilder.Entity<ShoppingCart>(entity =>
-            {
-                entity.ToTable("ShoppingCart", "dbo");
-            });
-
-            modelBuilder.Entity<ShoppingCartItem>(entity =>
-            {
-                entity.ToTable("ShoppingCartItem", "dbo");
-                // Boolean conversion for PostgreSQL
-                entity.Property(e => e.WantToBuy).HasConversion<int>();
-            });
-
-            modelBuilder.Entity<OrderItem>(entity =>
-            {
-                entity.ToTable("OrderItem", "dbo");
-            });
-
-            modelBuilder.Entity<Offer>(entity =>
-            {
-                entity.ToTable("Offer", "dbo");
-            });
-
-            modelBuilder.Entity<ReferenceDataItem>(entity =>
-            {
-                entity.ToTable("ReferenceData", "dbo");
-            });
-
-            // Boolean conversions for PostgreSQL
+            // PostgreSQL bool property conversions (bool stored as int in PostgreSQL)
             modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
+            modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
 
-            // Existing relationship configurations
+            modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
+
             modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Book>().HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Book>().HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
