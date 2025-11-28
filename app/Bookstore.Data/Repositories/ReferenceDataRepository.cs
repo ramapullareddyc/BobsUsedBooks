@@ -1,4 +1,4 @@
-﻿using Bookstore.Domain;
+using Bookstore.Domain;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -18,22 +18,22 @@ namespace Bookstore.Data.Repositories
 
         async Task IReferenceDataRepository.AddAsync(ReferenceDataItem item)
         {
-            await dbContext.ReferenceData.AddAsync(item);
+            await dbContext.Set<ReferenceDataItem>().AddAsync(item);
         }
 
         async Task<ReferenceDataItem> IReferenceDataRepository.GetAsync(int id)
         {
-            return await dbContext.ReferenceData.FindAsync(id);
+            return await dbContext.Set<ReferenceDataItem>().FindAsync(id);
         }
 
         async Task<IEnumerable<ReferenceDataItem>> IReferenceDataRepository.FullListAsync()
         {
-            return await dbContext.ReferenceData.ToListAsync();
+            return await dbContext.Set<ReferenceDataItem>().ToListAsync();
         }
 
         async Task<IPaginatedList<ReferenceDataItem>> IReferenceDataRepository.ListAsync(ReferenceDataFilters filters, int pageIndex, int pageSize)
         {
-            var query = dbContext.ReferenceData.AsQueryable();
+            var query = dbContext.Set<ReferenceDataItem>().AsQueryable();
 
             if (filters.ReferenceDataType.HasValue)
             {

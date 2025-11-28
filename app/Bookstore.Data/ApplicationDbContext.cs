@@ -1,4 +1,5 @@
-﻿using Bookstore.Domain.Addresses;
+using System;
+using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
 using Bookstore.Domain.Customers;
@@ -7,9 +8,8 @@ using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
-using System;
 
-namespace Bookstore.Data
+namespace Bookstore.Domain.Data
 {
     public partial class ApplicationDbContext : DbContext
     {
@@ -42,7 +42,18 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Boolean property conversions for PostgreSQL compatibility
+            // Configure table mappings with schema
+            modelBuilder.Entity<Address>().ToTable("Address", "dbo");
+            modelBuilder.Entity<Book>().ToTable("Book", "dbo");
+            modelBuilder.Entity<Customer>().ToTable("Customer", "dbo");
+            modelBuilder.Entity<Order>().ToTable("Order", "dbo");
+            modelBuilder.Entity<ShoppingCart>().ToTable("ShoppingCart", "dbo");
+            modelBuilder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItem", "dbo");
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItem", "dbo");
+            modelBuilder.Entity<Offer>().ToTable("Offer", "dbo");
+            modelBuilder.Entity<ReferenceDataItem>().ToTable("ReferenceData", "dbo");
+
+            // Configure boolean property conversions for PostgreSQL
             modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
             modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
 
@@ -64,6 +75,11 @@ namespace Bookstore.Data
             PopulateDatabase(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        private void PopulateDatabase(ModelBuilder modelBuilder)
+        {
+            // Seed data can be added here
         }
     }
 }
