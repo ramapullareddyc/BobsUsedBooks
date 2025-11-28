@@ -1,5 +1,4 @@
-using System;
-using Bookstore.Domain.Addresses;
+﻿using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
 using Bookstore.Domain.Customers;
@@ -8,6 +7,7 @@ using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using System;
 
 namespace Bookstore.Data
 {
@@ -42,12 +42,59 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Boolean property conversions for PostgreSQL compatibility
+            // Configure table mappings with schema for all entities
+            modelBuilder.Entity<Address>(entity =>
+            {
+                entity.ToTable("Address", "dbo");
+            });
+
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity.ToTable("Book", "dbo");
+            });
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("Customer", "dbo");
+                entity.HasIndex(x => x.Sub).IsUnique();
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.ToTable("Order", "dbo");
+            });
+
+            modelBuilder.Entity<ShoppingCart>(entity =>
+            {
+                entity.ToTable("ShoppingCart", "dbo");
+            });
+
+            modelBuilder.Entity<ShoppingCartItem>(entity =>
+            {
+                entity.ToTable("ShoppingCartItem", "dbo");
+                // Boolean conversion for PostgreSQL
+                entity.Property(e => e.WantToBuy).HasConversion<int>();
+            });
+
+            modelBuilder.Entity<OrderItem>(entity =>
+            {
+                entity.ToTable("OrderItem", "dbo");
+            });
+
+            modelBuilder.Entity<Offer>(entity =>
+            {
+                entity.ToTable("Offer", "dbo");
+            });
+
+            modelBuilder.Entity<ReferenceDataItem>(entity =>
+            {
+                entity.ToTable("ReferenceData", "dbo");
+            });
+
+            // Boolean conversions for PostgreSQL
             modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
-            modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
 
-            modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
-
+            // Existing relationship configurations
             modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Book>().HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Book>().HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
