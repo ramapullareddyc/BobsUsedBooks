@@ -89,13 +89,10 @@ namespace Bookstore.Web.Startup
 //                    PropertyNameCaseInsensitive = true
 //                });
 //
+//                var partialConnString = $"Host={dbSecrets.Host};Port={dbSecrets.Port};Database=postgres";
 //
-//
-//                var builder = new NpgsqlConnectionStringBuilder()
+//                var builder = new NpgsqlConnectionStringBuilder(partialConnString)
 //                {
-//                    Host = dbSecrets.Host,
-//                    Port = int.Parse(dbSecrets.Port),
-//                    Database = "postgres",
 //                    Username = dbSecrets.Username,
 //                    Password = dbSecrets.Password
 //                };
