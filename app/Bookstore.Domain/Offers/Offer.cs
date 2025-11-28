@@ -1,8 +1,10 @@
-﻿using Bookstore.Domain.Customers;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Bookstore.Domain.Customers;
 using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Offers
 {
+    [Table("offers", Schema = "public")]
     public class Offer : Entity
     {
         public Offer(
@@ -27,35 +29,48 @@ namespace Bookstore.Domain.Offers
             BookPrice = bookPrice;
         }
 
+        [Column("author")]
         public string Author { get; set; }
 
+        [Column("isbn")]
         public string ISBN { get; set; }
 
+        [Column("book_name")]
         public string BookName { get; set; }
 
+        [Column("front_url")]
         public string? FrontUrl { get; set; }
 
         public ReferenceDataItem Genre { get; set; }
+        [Column("genre_id")]
         public int GenreId { get; set; }
 
         public ReferenceDataItem Condition { get; set; }
+        [Column("condition_id")]
         public int ConditionId { get; set; }
 
         public ReferenceDataItem Publisher { get; set; }
+        [Column("publisher_id")]
         public int PublisherId { get; set; }
 
         public ReferenceDataItem BookType { get; set; }
+        [Column("book_type_id")]
         public int BookTypeId { get; set; }
 
+        [Column("summary")]
         public string? Summary { get; set; }
 
+        [Column("offer_status")]
         public OfferStatus OfferStatus { get; set; } = OfferStatus.PendingApproval;
 
+        [Column("comment")]
         public string? Comment { get; set; }
 
         public Customer Customer { get; set; }
+        [Column("customer_id")]
         public int CustomerId { get; set; }
 
+        [Column("book_price")]
         public decimal BookPrice { get; set; }
     }
 }
