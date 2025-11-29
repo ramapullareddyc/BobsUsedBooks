@@ -16,7 +16,6 @@ namespace Bookstore.Domain.Orders
         {
             CustomerId = customerId;
             AddressId = addressId;
-            DeliveryDate = DateTime.UtcNow.AddDays(7);
         }
 
         private readonly List<OrderItem> orderItems = new List<OrderItem>();
@@ -32,7 +31,7 @@ namespace Bookstore.Domain.Orders
         public IEnumerable<OrderItem> OrderItems => orderItems;
 
         [Column("DeliveryDate")]
-        public DateTime DeliveryDate { get; set; }
+        public DateTime DeliveryDate { get; set; } = DateTime.UtcNow.AddDays(7);
 
         [Column("OrderStatus")]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
