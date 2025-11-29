@@ -1,5 +1,7 @@
-﻿using Bookstore.Domain.ReferenceData;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Books
 {
@@ -9,15 +11,15 @@ namespace Bookstore.Domain.Books
         public const int LowBookThreshold = 5;
 
         public Book(
-            string name, 
-            string author, 
-            string ISBN, 
-            int publisherId, 
-            int bookTypeId, 
+            string name,
+            string author,
+            string ISBN,
+            int publisherId,
+            int bookTypeId,
             int genreId,
             int conditionId,
             decimal price,
-            int quantity, 
+            int quantity,
             int? year = null,
             string? summary = null,
             string? coverImageUrl = null)
