@@ -7,7 +7,6 @@ using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace Bookstore.Data
 {
@@ -42,7 +41,7 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // EF Core Boolean to PostgreSQL NUMERIC(1,0) conversions
+            // EF Core Boolean Conversions for PostgreSQL
             modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
             modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
 
