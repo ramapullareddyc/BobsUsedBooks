@@ -1,5 +1,5 @@
-﻿using Bookstore.Domain.ReferenceData;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Books
 {

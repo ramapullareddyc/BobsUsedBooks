@@ -16,6 +16,7 @@ using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 
+
 namespace Bookstore.Web.Startup
 {
     public static class ServicesSetup
@@ -90,13 +91,10 @@ namespace Bookstore.Web.Startup
 //                    PropertyNameCaseInsensitive = true
 //                });
 //
+//                var partialConnString = $"Host={dbSecrets.Host};Port={dbSecrets.Port};Database=BobsUsedBookStore";
 //
-//
-//                var builder = new NpgsqlConnectionStringBuilder()
+//                var builder = new NpgsqlConnectionStringBuilder(partialConnString)
 //                {
-//                    Host = dbSecrets.Host,
-//                    Port = int.Parse(dbSecrets.Port),
-//                    Database = "postgres",
 //                    Username = dbSecrets.Username,
 //                    Password = dbSecrets.Password
 //                };

@@ -1,6 +1,6 @@
-﻿using Bookstore.Domain.Customers;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Bookstore.Domain.Customers;
 using Bookstore.Domain.ReferenceData;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Domain.Offers
 {
