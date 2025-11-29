@@ -12,6 +12,7 @@ using System.Text.Json;
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Npgsql;
 
 
@@ -89,11 +90,11 @@ namespace Bookstore.Web.Startup
 //                    PropertyNameCaseInsensitive = true
 //                });
 //
-//                var partialConnString = $"Host={dbSecrets.Host};Port={dbSecrets.Port};Database=postgres";
+//                var partialConnString = $"Server={dbSecrets.Host},{dbSecrets.Port}; Initial Catalog=BobsUsedBookStore;MultipleActiveResultSets=true; Integrated Security=false";
 //
-//                var builder = new NpgsqlConnectionStringBuilder(partialConnString)
+//                var builder = new SqlConnectionStringBuilder(partialConnString)
 //                {
-//                    Username = dbSecrets.Username,
+//                    UserID = dbSecrets.Username,
 //                    Password = dbSecrets.Password
 //                };
 //
