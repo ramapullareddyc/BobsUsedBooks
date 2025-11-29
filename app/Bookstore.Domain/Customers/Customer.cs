@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Domain.Customers
 {
-    [Table("customers", Schema = "public")]
+    [Table("customer", Schema = "dbo")]
     public class Customer : Entity
     {
         [Column("sub")]

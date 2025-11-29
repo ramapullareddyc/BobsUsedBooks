@@ -3,7 +3,7 @@ using Bookstore.Domain.Books;
 
 namespace Bookstore.Domain.Carts
 {
-    [Table("shopping_cart_items", Schema = "public")]
+    [Table("shopping_cart_item", Schema = "dbo")]
     public class ShoppingCartItem : Entity
     {
         // An empty constructor is required by EF Core

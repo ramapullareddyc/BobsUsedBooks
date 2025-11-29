@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Bookstore.Domain.Carts
 {
-    [Table("shopping_carts", Schema = "public")]
+    [Table("shopping_cart", Schema = "dbo")]
     public class ShoppingCart : Entity
     {
         public List<ShoppingCartItem> ShoppingCartItems { get; private set; } = new();

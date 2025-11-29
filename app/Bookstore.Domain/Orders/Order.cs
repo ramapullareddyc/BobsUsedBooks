@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("orders", Schema = "public")]
+    [Table("order", Schema = "dbo")]
     public class Order : Entity
     {
         public Order(int customerId, int addressId)
