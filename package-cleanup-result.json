@@ -9,7 +9,6 @@
     "Microsoft.VisualStudio.Web.CodeGeneration.Design"
   ],
   "Bookstore.Web": [
-    "Npgsql.EntityFrameworkCore.PostgreSQL",
     "Amazon.Extensions.Configuration.SystemsManager",
     "AWS.Logger.AspNetCore",
     "AWSSDK.CloudWatchLogs",
