@@ -35,10 +35,13 @@ namespace Bookstore.Domain.Orders
         [Column("OrderStatus")]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 
+        [Column("Tax")]
         public decimal Tax => SubTotal * 0.1m;
 
+        [Column("SubTotal")]
         public decimal SubTotal => OrderItems.Sum(x => x.Book.Price);
 
+        [Column("Total")]
         public decimal Total => SubTotal + Tax;
 
         public void AddOrderItem(Book book, int quantity)
