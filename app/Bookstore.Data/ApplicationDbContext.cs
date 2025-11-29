@@ -1,5 +1,4 @@
-using System;
-using Bookstore.Domain.Addresses;
+﻿using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
 using Bookstore.Domain.Customers;
@@ -7,7 +6,7 @@ using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
+using System;
 
 namespace Bookstore.Data
 {
@@ -17,7 +16,6 @@ namespace Bookstore.Data
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
-
         public ApplicationDbContext() { }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
@@ -42,24 +40,6 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Entity table mappings
-            modelBuilder.Entity<Address>().ToTable("Address", "dbo");
-            modelBuilder.Entity<Book>().ToTable("Book", "dbo");
-            modelBuilder.Entity<Customer>().ToTable("Customer", "dbo");
-            modelBuilder.Entity<Order>().ToTable("Order", "dbo");
-            modelBuilder.Entity<ShoppingCart>().ToTable("ShoppingCart", "dbo");
-            modelBuilder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItem", "dbo");
-            modelBuilder.Entity<OrderItem>().ToTable("OrderItem", "dbo");
-            modelBuilder.Entity<Offer>().ToTable("Offer", "dbo");
-            modelBuilder.Entity<ReferenceDataItem>().ToTable("ReferenceData", "dbo");
-
-            // Boolean property conversions for PostgreSQL
-            modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
-            modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
-            modelBuilder.Entity<Book>().Property(e => e.IsInStock).HasConversion<int>();
-            modelBuilder.Entity<Book>().Property(e => e.IsLowInStock).HasConversion<int>();
-
-            // Existing relationship configurations
             modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
 
             modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
@@ -73,6 +53,10 @@ namespace Bookstore.Data
             modelBuilder.Entity<Offer>().HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Order>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
+
+            // Configure boolean properties for PostgreSQL compatibility
+            modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
+            modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
 
             PopulateDatabase(modelBuilder);
 
