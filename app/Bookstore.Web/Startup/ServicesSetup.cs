@@ -1,4 +1,4 @@
-﻿using Amazon.Rekognition;
+using Amazon.Rekognition;
 using Amazon.S3;
 using Amazon.SecretsManager.Model;
 using Amazon.SecretsManager;
@@ -32,7 +32,7 @@ namespace Bookstore.Web.Startup
             builder.Services.AddAWSService<IAmazonRekognition>();
 
             var connString = GetDatabaseConnectionString(builder.Configuration);
-            builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseNpgsql(connString));
+            builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(connString));
             builder.Services.AddSession();
 
             return builder;
@@ -89,14 +89,11 @@ namespace Bookstore.Web.Startup
 //                    PropertyNameCaseInsensitive = true
 //                });
 //
-
+//                var partialConnString = $"Server={dbSecrets.Host},{dbSecrets.Port}; Initial Catalog=BobsUsedBookStore;MultipleActiveResultSets=true; Integrated Security=false";
 //
-//                var builder = new NpgsqlConnectionStringBuilder()
+//                var builder = new SqlConnectionStringBuilder(partialConnString)
 //                {
-//                    Host = dbSecrets.Host,
-//                    Port = dbSecrets.Port,
-//                    Database = "postgres",
-//                    Username = dbSecrets.Username,
+//                    UserID = dbSecrets.Username,
 //                    Password = dbSecrets.Password
 //                };
 //
