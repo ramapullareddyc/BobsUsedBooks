@@ -1,4 +1,5 @@
-﻿using Bookstore.Domain.Addresses;
+using System;
+using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
 using Bookstore.Domain.Customers;
@@ -6,7 +7,7 @@ using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace Bookstore.Data
 {
@@ -41,56 +42,24 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Entity table mappings
+            modelBuilder.Entity<Address>().ToTable("Address", "dbo");
+            modelBuilder.Entity<Book>().ToTable("Book", "dbo");
+            modelBuilder.Entity<Customer>().ToTable("Customer", "dbo");
+            modelBuilder.Entity<Order>().ToTable("Order", "dbo");
+            modelBuilder.Entity<ShoppingCart>().ToTable("ShoppingCart", "dbo");
+            modelBuilder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItem", "dbo");
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItem", "dbo");
+            modelBuilder.Entity<Offer>().ToTable("Offer", "dbo");
+            modelBuilder.Entity<ReferenceDataItem>().ToTable("ReferenceData", "dbo");
+
             // Boolean property conversions for PostgreSQL
             modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
             modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
+            modelBuilder.Entity<Book>().Property(e => e.IsInStock).HasConversion<int>();
+            modelBuilder.Entity<Book>().Property(e => e.IsLowInStock).HasConversion<int>();
 
-            // Fluent API table and column mappings
-            modelBuilder.Entity<Address>(entity =>
-            {
-                entity.ToTable("Address", "public");
-            });
-
-            modelBuilder.Entity<Book>(entity =>
-            {
-                entity.ToTable("Book", "public");
-            });
-
-            modelBuilder.Entity<Customer>(entity =>
-            {
-                entity.ToTable("Customer", "public");
-            });
-
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.ToTable("Order", "public");
-            });
-
-            modelBuilder.Entity<ShoppingCart>(entity =>
-            {
-                entity.ToTable("ShoppingCart", "public");
-            });
-
-            modelBuilder.Entity<ShoppingCartItem>(entity =>
-            {
-                entity.ToTable("ShoppingCartItem", "public");
-            });
-
-            modelBuilder.Entity<OrderItem>(entity =>
-            {
-                entity.ToTable("OrderItem", "public");
-            });
-
-            modelBuilder.Entity<Offer>(entity =>
-            {
-                entity.ToTable("Offer", "public");
-            });
-
-            modelBuilder.Entity<ReferenceDataItem>(entity =>
-            {
-                entity.ToTable("ReferenceData", "public");
-            });
-
+            // Existing relationship configurations
             modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
 
             modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
