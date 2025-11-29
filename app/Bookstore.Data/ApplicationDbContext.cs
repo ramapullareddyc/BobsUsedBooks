@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
@@ -7,7 +7,6 @@ using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace Bookstore.Data
 {
@@ -42,9 +41,27 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Boolean property conversions for PostgreSQL
-            modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
-            modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
+            // Configure table mappings with schema
+            modelBuilder.Entity<Address>(entity =>
+            {
+                entity.ToTable("Address", "public");
+                entity.Property(e => e.IsActive).HasConversion<int>();
+            });
+
+            modelBuilder.Entity<Book>().ToTable("Book", "public");
+            modelBuilder.Entity<Customer>().ToTable("Customer", "public");
+            modelBuilder.Entity<Order>().ToTable("Order", "public");
+            modelBuilder.Entity<ShoppingCart>().ToTable("ShoppingCart", "public");
+            
+            modelBuilder.Entity<ShoppingCartItem>(entity =>
+            {
+                entity.ToTable("ShoppingCartItem", "public");
+                entity.Property(e => e.WantToBuy).HasConversion<int>();
+            });
+
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItem", "public");
+            modelBuilder.Entity<Offer>().ToTable("Offer", "public");
+            modelBuilder.Entity<ReferenceDataItem>().ToTable("ReferenceData", "public");
 
             modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
 
