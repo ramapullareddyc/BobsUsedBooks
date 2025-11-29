@@ -4,7 +4,7 @@ using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Books
 {
-    [Table("Book", Schema = "public")]
+    [Table("Book", Schema = "dbo")]
     public class Book : Entity
     {
         public const int LowBookThreshold = 5;
@@ -81,8 +81,10 @@ namespace Bookstore.Domain.Books
         [Column("Quantity")]
         public int Quantity { get; set; }
 
+        [Column("IsInStock")]
         public bool IsInStock => Quantity > 0;
 
+        [Column("IsLowInStock")]
         public bool IsLowInStock => Quantity <= LowBookThreshold;
 
         public void ReduceStockLevel(int quantity)
