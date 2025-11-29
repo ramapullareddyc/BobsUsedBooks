@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace Bookstore.Domain.ReferenceData
 {
     [Table("ReferenceData", Schema = "dbo")]
