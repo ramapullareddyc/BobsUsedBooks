@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Addresses
 {
-    [Table("Address", Schema = "dbo")]
+    [Table("Address", Schema = "public")]
     public class Address : Entity
     {
         // An empty constructor is required by EF Core
@@ -43,6 +44,7 @@ namespace Bookstore.Domain.Addresses
 
         [Column("CustomerId")]
         public int CustomerId { get; set; }
+        
         public Customer Customer { get; set; }
 
         [Column("IsActive")]
