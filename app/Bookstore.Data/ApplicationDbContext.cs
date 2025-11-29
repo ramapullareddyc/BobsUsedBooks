@@ -1,4 +1,5 @@
-﻿using Bookstore.Domain.Addresses;
+using System;
+using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
 using Bookstore.Domain.Customers;
@@ -6,7 +7,6 @@ using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Bookstore.Data
 {
@@ -41,7 +41,7 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Table and column mappings for Address entity
+            // Table and column mappings for PostgreSQL
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.ToTable("Address", "dbo");
@@ -59,7 +59,6 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
             });
 
-            // Table and column mappings for Book entity
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.ToTable("Book", "dbo");
@@ -85,7 +84,6 @@ namespace Bookstore.Data
                 entity.HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Table and column mappings for Customer entity
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.ToTable("Customer", "dbo");
@@ -103,7 +101,6 @@ namespace Bookstore.Data
                 entity.HasIndex(x => x.Sub).IsUnique();
             });
 
-            // Table and column mappings for Order entity
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.ToTable("Order", "dbo");
@@ -118,7 +115,6 @@ namespace Bookstore.Data
                 entity.HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Table and column mappings for ShoppingCart entity
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
                 entity.ToTable("ShoppingCart", "dbo");
@@ -129,7 +125,6 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
             });
 
-            // Table and column mappings for ShoppingCartItem entity
             modelBuilder.Entity<ShoppingCartItem>(entity =>
             {
                 entity.ToTable("ShoppingCartItem", "dbo");
@@ -143,7 +138,6 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
             });
 
-            // Table and column mappings for OrderItem entity
             modelBuilder.Entity<OrderItem>(entity =>
             {
                 entity.ToTable("OrderItem", "dbo");
@@ -156,7 +150,6 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
             });
 
-            // Table and column mappings for Offer entity
             modelBuilder.Entity<Offer>(entity =>
             {
                 entity.ToTable("Offer", "dbo");
@@ -183,7 +176,6 @@ namespace Bookstore.Data
                 entity.HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Table and column mappings for ReferenceData entity
             modelBuilder.Entity<ReferenceDataItem>(entity =>
             {
                 entity.ToTable("ReferenceData", "dbo");
