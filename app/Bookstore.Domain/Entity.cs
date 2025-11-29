@@ -6,20 +6,20 @@ namespace Bookstore.Domain
 {
     public abstract class Entity
     {
-        [Key]
-        [Column("Id")]
+        [Column("id")]
         public int Id { get; set; }
 
-        [Column("CreatedBy")]
+        [Column("createdby")]
         public string CreatedBy { get; set; } = "System";
 
-        [Column("CreatedOn")]
+        [Column("createdon")]
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
-        [Column("UpdatedOn")]
+        [Column("updatedon")]
         public DateTime UpdatedOn { get; set; } = DateTime.UtcNow;
 
         [Timestamp]
+        [Column("rowversion")]
         public byte[] RowVersion { get; set; }
 
         public bool IsNewEntity()
