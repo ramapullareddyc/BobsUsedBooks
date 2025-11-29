@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.Books;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("orderitem", Schema = "public")]
+    [Table("OrderItem", Schema = "dbo")]
     public class OrderItem : Entity
     {
         // This private constructor is required by EF Core
@@ -18,15 +20,15 @@ namespace Bookstore.Domain.Orders
             Quantity = quantity;
         }
 
-        [Column("orderid")]
+        [Column("OrderId")]
         public int OrderId { get; set; }
         public Order Order { get; set; }
 
-        [Column("bookid")]
+        [Column("BookId")]
         public int BookId { get; set; }
         public Book Book { get; set; }
 
-        [Column("quantity")]
+        [Column("Quantity")]
         public int Quantity { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Bookstore.Domain.Addresses;
@@ -8,7 +9,7 @@ using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("order", Schema = "public")]
+    [Table("Order", Schema = "dbo")]
     public class Order : Entity
     {
         public Order(int customerId, int addressId)
@@ -19,26 +20,29 @@ namespace Bookstore.Domain.Orders
 
         private readonly List<OrderItem> orderItems = new List<OrderItem>();
 
-        [Column("customerid")]
+        [Column("CustomerId")]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        [Column("addressid")]
+        [Column("AddressId")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
 
         public IEnumerable<OrderItem> OrderItems => orderItems;
 
-        [Column("deliverydate")]
+        [Column("DeliveryDate")]
         public DateTime DeliveryDate { get; set; } = DateTime.UtcNow.AddDays(7);
 
-        [Column("orderstatus")]
+        [Column("OrderStatus")]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 
+        [Column("Tax")]
         public decimal Tax => SubTotal * 0.1m;
 
+        [Column("SubTotal")]
         public decimal SubTotal => OrderItems.Sum(x => x.Book.Price);
 
+        [Column("Total")]
         public decimal Total => SubTotal + Tax;
 
         public void AddOrderItem(Book book, int quantity)
