@@ -7,7 +7,6 @@ using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace Bookstore.Data
 {
@@ -17,6 +16,7 @@ namespace Bookstore.Data
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
+
         public ApplicationDbContext() { }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
@@ -41,10 +41,22 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Boolean conversions for PostgreSQL compatibility
+            // Table mappings for PostgreSQL
+            modelBuilder.Entity<Address>().ToTable("Address", "public");
+            modelBuilder.Entity<Book>().ToTable("Book", "public");
+            modelBuilder.Entity<Customer>().ToTable("Customer", "public");
+            modelBuilder.Entity<Order>().ToTable("Order", "public");
+            modelBuilder.Entity<ShoppingCart>().ToTable("ShoppingCart", "public");
+            modelBuilder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItem", "public");
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItem", "public");
+            modelBuilder.Entity<Offer>().ToTable("Offer", "public");
+            modelBuilder.Entity<ReferenceDataItem>().ToTable("ReferenceData", "public");
+
+            // Boolean conversions for PostgreSQL
             modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
             modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
 
+            // Existing configurations
             modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
 
             modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
