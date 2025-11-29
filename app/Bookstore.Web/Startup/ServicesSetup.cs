@@ -89,7 +89,7 @@ namespace Bookstore.Web.Startup
 //                    PropertyNameCaseInsensitive = true
 //                });
 //
-//                var partialConnString = $"Host={dbSecrets.Host};Port={dbSecrets.Port};Database=postgres";
+//                var partialConnString = $"Server={dbSecrets.Host},{dbSecrets.Port}; Initial Catalog=BobsUsedBookStore;MultipleActiveResultSets=true; Integrated Security=false";
 //
 //                var builder = new NpgsqlConnectionStringBuilder(partialConnString)
 //                {

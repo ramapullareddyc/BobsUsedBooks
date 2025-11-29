@@ -6,7 +6,6 @@ namespace Bookstore.Domain
 {
     public abstract class Entity
     {
-        [Key]
         [Column("Id")]
         public int Id { get; set; }
 
