@@ -9,7 +9,7 @@ using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("Order", Schema = "public")]
+    [Table("Order", Schema = "dbo")]
     public class Order : Entity
     {
         public Order(int customerId, int addressId)
@@ -22,12 +22,10 @@ namespace Bookstore.Domain.Orders
 
         [Column("CustomerId")]
         public int CustomerId { get; set; }
-        
         public Customer Customer { get; set; }
 
         [Column("AddressId")]
         public int AddressId { get; set; }
-        
         public Address Address { get; set; }
 
         public IEnumerable<OrderItem> OrderItems => orderItems;

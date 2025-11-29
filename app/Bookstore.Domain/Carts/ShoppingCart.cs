@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Bookstore.Domain.Carts
 {
-    [Table("ShoppingCart", Schema = "public")]
+    [Table("ShoppingCart", Schema = "dbo")]
     public class ShoppingCart : Entity
     {
         public List<ShoppingCartItem> ShoppingCartItems { get; private set; } = new();
