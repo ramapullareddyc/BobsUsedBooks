@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Bookstore.Domain.Carts
 {
-    [Table("ShoppingCart", Schema = "dbo")]
+    [Table("shopping_carts", Schema = "public")]
     public class ShoppingCart : Entity
     {
         public List<ShoppingCartItem> ShoppingCartItems { get; private set; } = new();
 
-        [Column("CorrelationId")]
+        [Column("correlation_id")]
         public string CorrelationId { get; set; }
 
         public ShoppingCart(string correlationId)

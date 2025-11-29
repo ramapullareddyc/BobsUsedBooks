@@ -4,7 +4,7 @@ using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Offers
 {
-    [Table("Offer", Schema = "dbo")]
+    [Table("offers", Schema = "public")]
     public class Offer : Entity
     {
         public Offer(
@@ -29,48 +29,53 @@ namespace Bookstore.Domain.Offers
             BookPrice = bookPrice;
         }
 
-        [Column("Author")]
+        [Column("author")]
         public string Author { get; set; }
 
-        [Column("ISBN")]
+        [Column("isbn")]
         public string ISBN { get; set; }
 
-        [Column("BookName")]
+        [Column("book_name")]
         public string BookName { get; set; }
 
-        [Column("FrontUrl")]
+        [Column("front_url")]
         public string? FrontUrl { get; set; }
 
         public ReferenceDataItem Genre { get; set; }
-        [Column("GenreId")]
+        
+        [Column("genre_id")]
         public int GenreId { get; set; }
 
         public ReferenceDataItem Condition { get; set; }
-        [Column("ConditionId")]
+        
+        [Column("condition_id")]
         public int ConditionId { get; set; }
 
         public ReferenceDataItem Publisher { get; set; }
-        [Column("PublisherId")]
+        
+        [Column("publisher_id")]
         public int PublisherId { get; set; }
 
         public ReferenceDataItem BookType { get; set; }
-        [Column("BookTypeId")]
+        
+        [Column("book_type_id")]
         public int BookTypeId { get; set; }
 
-        [Column("Summary")]
+        [Column("summary")]
         public string? Summary { get; set; }
 
-        [Column("OfferStatus")]
+        [Column("offer_status")]
         public OfferStatus OfferStatus { get; set; } = OfferStatus.PendingApproval;
 
-        [Column("Comment")]
+        [Column("comment")]
         public string? Comment { get; set; }
 
         public Customer Customer { get; set; }
-        [Column("CustomerId")]
+        
+        [Column("customer_id")]
         public int CustomerId { get; set; }
 
-        [Column("BookPrice")]
+        [Column("book_price")]
         public decimal BookPrice { get; set; }
     }
 }

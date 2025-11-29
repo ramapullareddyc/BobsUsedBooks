@@ -8,7 +8,7 @@ using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("Order", Schema = "dbo")]
+    [Table("orders", Schema = "public")]
     public class Order : Entity
     {
         public Order(int customerId, int addressId)
@@ -19,29 +19,30 @@ namespace Bookstore.Domain.Orders
 
         private readonly List<OrderItem> orderItems = new List<OrderItem>();
 
-        [Column("CustomerId")]
+        [Column("customer_id")]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        [Column("AddressId")]
+        [Column("address_id")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
 
+        [NotMapped]
         public IEnumerable<OrderItem> OrderItems => orderItems;
 
-        [Column("DeliveryDate")]
-        public DateTime DeliveryDate { get; set; } = DateTime.Now.AddDays(7);
+        [Column("delivery_date")]
+        public DateTime DeliveryDate { get; set; } = DateTime.UtcNow.AddDays(7);
 
-        [Column("OrderStatus")]
+        [Column("order_status")]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 
-        [Column("Tax")]
+        [NotMapped]
         public decimal Tax => SubTotal * 0.1m;
 
-        [Column("SubTotal")]
+        [NotMapped]
         public decimal SubTotal => OrderItems.Sum(x => x.Book.Price);
 
-        [Column("Total")]
+        [NotMapped]
         public decimal Total => SubTotal + Tax;
 
         public void AddOrderItem(Book book, int quantity)
