@@ -1,5 +1,4 @@
-using System;
-using Bookstore.Domain.Addresses;
+﻿using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
 using Bookstore.Domain.Customers;
@@ -7,7 +6,7 @@ using Bookstore.Domain.Offers;
 using Bookstore.Domain.Orders;
 using Bookstore.Domain.ReferenceData;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
+using System;
 
 namespace Bookstore.Data
 {
@@ -42,9 +41,55 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Boolean property conversions for PostgreSQL compatibility
+            // Boolean property conversions for PostgreSQL
             modelBuilder.Entity<Address>().Property(e => e.IsActive).HasConversion<int>();
             modelBuilder.Entity<ShoppingCartItem>().Property(e => e.WantToBuy).HasConversion<int>();
+
+            // Fluent API table and column mappings
+            modelBuilder.Entity<Address>(entity =>
+            {
+                entity.ToTable("Address", "public");
+            });
+
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity.ToTable("Book", "public");
+            });
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("Customer", "public");
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.ToTable("Order", "public");
+            });
+
+            modelBuilder.Entity<ShoppingCart>(entity =>
+            {
+                entity.ToTable("ShoppingCart", "public");
+            });
+
+            modelBuilder.Entity<ShoppingCartItem>(entity =>
+            {
+                entity.ToTable("ShoppingCartItem", "public");
+            });
+
+            modelBuilder.Entity<OrderItem>(entity =>
+            {
+                entity.ToTable("OrderItem", "public");
+            });
+
+            modelBuilder.Entity<Offer>(entity =>
+            {
+                entity.ToTable("Offer", "public");
+            });
+
+            modelBuilder.Entity<ReferenceDataItem>(entity =>
+            {
+                entity.ToTable("ReferenceData", "public");
+            });
 
             modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
 
