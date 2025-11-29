@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.ReferenceData;
 
@@ -77,8 +78,10 @@ namespace Bookstore.Domain.Books
         [Column("Quantity")]
         public int Quantity { get; set; }
 
+        [Column("IsInStock")]
         public bool IsInStock => Quantity > 0;
 
+        [Column("IsLowInStock")]
         public bool IsLowInStock => Quantity <= LowBookThreshold;
 
         public void ReduceStockLevel(int quantity)
