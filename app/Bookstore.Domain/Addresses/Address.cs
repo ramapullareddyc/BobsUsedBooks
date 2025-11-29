@@ -3,7 +3,7 @@ using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Addresses
 {
-    [Table("Address", Schema = "dbo")]
+    [Table("Address", Schema = "public")]
     public class Address : Entity
     {
         // An empty constructor is required by EF Core

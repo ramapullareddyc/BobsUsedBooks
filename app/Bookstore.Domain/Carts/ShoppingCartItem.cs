@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
 using Bookstore.Domain.Books;
 
 namespace Bookstore.Domain.Carts
 {
-    [Table("ShoppingCartItem", Schema = "dbo")]
+    [Table("ShoppingCartItem", Schema = "public")]
     public class ShoppingCartItem : Entity
     {
         // An empty constructor is required by EF Core
