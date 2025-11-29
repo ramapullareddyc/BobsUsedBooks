@@ -1,10 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Domain.ReferenceData
 {
-    [Table("ReferenceData", Schema = "dbo")]
+    [Table("reference_data_items", Schema = "public")]
     public class ReferenceDataItem : Entity
     {
         // An empty constructor is required by EF Core
@@ -16,10 +14,10 @@ namespace Bookstore.Domain.ReferenceData
             Text = text;
         }
 
-        [Column("DataType")]
+        [Column("data_type")]
         public ReferenceDataType DataType { get; set; }
 
-        [Column("Text")]
+        [Column("text")]
         public string Text { get; set; }
     }
 }
