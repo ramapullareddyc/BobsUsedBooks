@@ -1,12 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Bookstore.Domain
 {
     public abstract class Entity
     {
-        [Key]
         [Column("Id")]
         public int Id { get; set; }
 
@@ -19,7 +16,7 @@ namespace Bookstore.Domain
         [Column("UpdatedOn")]
         public DateTime UpdatedOn { get; set; } = DateTime.UtcNow;
 
-        [Timestamp]
+        [Column("RowVersion")]
         public byte[] RowVersion { get; set; }
 
         public bool IsNewEntity()

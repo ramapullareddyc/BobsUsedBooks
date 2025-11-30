@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Bookstore.Domain.Customers
 {
     [Table("Customer", Schema = "public")]
