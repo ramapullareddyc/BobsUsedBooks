@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.Books;
 
 namespace Bookstore.Domain.Orders
@@ -18,12 +19,15 @@ namespace Bookstore.Domain.Orders
             Quantity = quantity;
         }
 
+        [Column("OrderId")]
         public int OrderId { get; set; }
         public Order Order { get; set; }
 
+        [Column("BookId")]
         public int BookId { get; set; }
         public Book Book { get; set; }
 
+        [Column("Quantity")]
         public int Quantity { get; set; }
     }
 }

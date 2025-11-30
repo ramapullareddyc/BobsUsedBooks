@@ -4,7 +4,7 @@ using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Books
 {
-    [Table("books")]
+    [Table("Book", Schema = "dbo")]
     public class Book : Entity
     {
         public const int LowBookThreshold = 5;
@@ -37,44 +37,48 @@ namespace Bookstore.Domain.Books
             CoverImageUrl = coverImageUrl;
         }
 
-        [Column("name")]
+        [Column("Name")]
         public string Name { get; set; }
 
-        [Column("author")]
+        [Column("Author")]
         public string Author { get; set; }
 
-        [Column("year")]
+        [Column("Year")]
         public int? Year { get; set; }
 
-        [Column("isbn")]
+        [Column("ISBN")]
         public string ISBN { get; set; }
 
         public ReferenceDataItem Publisher { get; set; }
-        [Column("publisher_id")]
+        
+        [Column("PublisherId")]
         public int PublisherId { get; set; }
 
         public ReferenceDataItem BookType { get; set; }
-        [Column("book_type_id")]
+        
+        [Column("BookTypeId")]
         public int BookTypeId { get; set; }
 
         public ReferenceDataItem Genre { get; set; }
-        [Column("genre_id")]
+        
+        [Column("GenreId")]
         public int GenreId { get; set; }
 
         public ReferenceDataItem Condition { get; set; }
-        [Column("condition_id")]
+        
+        [Column("ConditionId")]
         public int ConditionId { get; set; }
 
-        [Column("cover_image_url")]
+        [Column("CoverImageUrl")]
         public string? CoverImageUrl { get; set; }
 
-        [Column("summary")]
+        [Column("Summary")]
         public string? Summary { get; set; }
 
-        [Column("price")]
+        [Column("Price")]
         public decimal Price { get; set; }
 
-        [Column("quantity")]
+        [Column("Quantity")]
         public int Quantity { get; set; }
 
         public bool IsInStock => Quantity > 0;

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.Books;
 
 namespace Bookstore.Domain.Carts
@@ -18,14 +19,18 @@ namespace Bookstore.Domain.Carts
             WantToBuy = wantToBuy;
         }
 
+        [Column("ShoppingCartId")]
         public int ShoppingCartId { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
 
+        [Column("BookId")]
         public int BookId { get; set; }
         public Book Book { get; set; }
 
+        [Column("Quantity")]
         public int Quantity { get; set; }
 
+        [Column("WantToBuy")]
         public bool WantToBuy { get; set; }
     }
 }
