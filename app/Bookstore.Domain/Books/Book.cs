@@ -1,10 +1,10 @@
-﻿using Bookstore.Domain.ReferenceData;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Books
 {
-    [Table("Book", Schema = "dbo")]
+    [Table("Book", Schema = "public")]
     public class Book : Entity
     {
         public const int LowBookThreshold = 5;

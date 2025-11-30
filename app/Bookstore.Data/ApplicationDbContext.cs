@@ -42,10 +42,10 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Address entity configuration
+            // Configure Address entity
             modelBuilder.Entity<Address>(entity =>
             {
-                entity.ToTable("Address", "dbo");
+                entity.ToTable("Address", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.AddressLine1).HasColumnName("AddressLine1");
                 entity.Property(e => e.AddressLine2).HasColumnName("AddressLine2");
@@ -60,10 +60,10 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
             });
 
-            // Book entity configuration
+            // Configure Book entity
             modelBuilder.Entity<Book>(entity =>
             {
-                entity.ToTable("Book", "dbo");
+                entity.ToTable("Book", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.Name).HasColumnName("Name");
                 entity.Property(e => e.Author).HasColumnName("Author");
@@ -87,10 +87,10 @@ namespace Bookstore.Data
                 entity.HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Customer entity configuration
+            // Configure Customer entity
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.ToTable("Customer", "dbo");
+                entity.ToTable("Customer", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.Sub).HasColumnName("Sub");
                 entity.Property(e => e.Username).HasColumnName("Username");
@@ -106,15 +106,18 @@ namespace Bookstore.Data
                 entity.HasIndex(x => x.Sub).IsUnique();
             });
 
-            // Order entity configuration
+            // Configure Order entity
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.ToTable("Order", "dbo");
+                entity.ToTable("Order", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerId");
                 entity.Property(e => e.AddressId).HasColumnName("AddressId");
                 entity.Property(e => e.DeliveryDate).HasColumnName("DeliveryDate");
                 entity.Property(e => e.OrderStatus).HasColumnName("OrderStatus");
+                entity.Property(e => e.Tax).HasColumnName("Tax");
+                entity.Property(e => e.SubTotal).HasColumnName("SubTotal");
+                entity.Property(e => e.Total).HasColumnName("Total");
                 entity.Property(e => e.CreatedBy).HasColumnName("CreatedBy");
                 entity.Property(e => e.CreatedOn).HasColumnName("CreatedOn");
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
@@ -122,10 +125,10 @@ namespace Bookstore.Data
                 entity.HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
             });
 
-            // ShoppingCart entity configuration
+            // Configure ShoppingCart entity
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
-                entity.ToTable("ShoppingCart", "dbo");
+                entity.ToTable("ShoppingCart", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.CorrelationId).HasColumnName("CorrelationId");
                 entity.Property(e => e.CreatedBy).HasColumnName("CreatedBy");
@@ -133,10 +136,10 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
             });
 
-            // ShoppingCartItem entity configuration
+            // Configure ShoppingCartItem entity
             modelBuilder.Entity<ShoppingCartItem>(entity =>
             {
-                entity.ToTable("ShoppingCartItem", "dbo");
+                entity.ToTable("ShoppingCartItem", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.ShoppingCartId).HasColumnName("ShoppingCartId");
                 entity.Property(e => e.BookId).HasColumnName("BookId");
@@ -147,10 +150,10 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
             });
 
-            // OrderItem entity configuration
+            // Configure OrderItem entity
             modelBuilder.Entity<OrderItem>(entity =>
             {
-                entity.ToTable("OrderItem", "dbo");
+                entity.ToTable("OrderItem", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.OrderId).HasColumnName("OrderId");
                 entity.Property(e => e.BookId).HasColumnName("BookId");
@@ -160,10 +163,10 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("UpdatedOn");
             });
 
-            // Offer entity configuration
+            // Configure Offer entity
             modelBuilder.Entity<Offer>(entity =>
             {
-                entity.ToTable("Offer", "dbo");
+                entity.ToTable("Offer", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.Author).HasColumnName("Author");
                 entity.Property(e => e.ISBN).HasColumnName("ISBN");
@@ -188,10 +191,10 @@ namespace Bookstore.Data
                 entity.HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
             });
 
-            // ReferenceDataItem entity configuration
+            // Configure ReferenceDataItem entity
             modelBuilder.Entity<ReferenceDataItem>(entity =>
             {
-                entity.ToTable("ReferenceData", "dbo");
+                entity.ToTable("ReferenceData", "public");
                 entity.Property(e => e.Id).HasColumnName("Id");
                 entity.Property(e => e.DataType).HasColumnName("DataType");
                 entity.Property(e => e.Text).HasColumnName("Text");
