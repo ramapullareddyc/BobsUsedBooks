@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Domain
 {
@@ -12,7 +14,7 @@ namespace Bookstore.Domain
 
         public DateTime UpdatedOn { get; set; } = DateTime.UtcNow;
 
-        [Timestamp]
+        [ConcurrencyCheck]
         public byte[] RowVersion { get; set; }
 
         public bool IsNewEntity()

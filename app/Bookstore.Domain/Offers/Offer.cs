@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.Customers;
 using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Offers
 {
-    [Table("Offer", Schema = "dbo")]
+    [Table("offer", Schema = "dbo")]
     public class Offer : Entity
     {
         public Offer(
@@ -29,53 +30,53 @@ namespace Bookstore.Domain.Offers
             BookPrice = bookPrice;
         }
 
-        [Column("Author")]
+        [Column("author")]
         public string Author { get; set; }
 
-        [Column("ISBN")]
+        [Column("isbn")]
         public string ISBN { get; set; }
 
-        [Column("BookName")]
+        [Column("bookname")]
         public string BookName { get; set; }
 
-        [Column("FrontUrl")]
+        [Column("fronturl")]
         public string? FrontUrl { get; set; }
 
         public ReferenceDataItem Genre { get; set; }
         
-        [Column("GenreId")]
+        [Column("genreid")]
         public int GenreId { get; set; }
 
         public ReferenceDataItem Condition { get; set; }
         
-        [Column("ConditionId")]
+        [Column("conditionid")]
         public int ConditionId { get; set; }
 
         public ReferenceDataItem Publisher { get; set; }
         
-        [Column("PublisherId")]
+        [Column("publisherid")]
         public int PublisherId { get; set; }
 
         public ReferenceDataItem BookType { get; set; }
         
-        [Column("BookTypeId")]
+        [Column("booktypeid")]
         public int BookTypeId { get; set; }
 
-        [Column("Summary")]
+        [Column("summary")]
         public string? Summary { get; set; }
 
-        [Column("OfferStatus")]
+        [Column("offerstatus")]
         public OfferStatus OfferStatus { get; set; } = OfferStatus.PendingApproval;
 
-        [Column("Comment")]
+        [Column("comment")]
         public string? Comment { get; set; }
 
         public Customer Customer { get; set; }
         
-        [Column("CustomerId")]
+        [Column("customerid")]
         public int CustomerId { get; set; }
 
-        [Column("BookPrice")]
+        [Column("bookprice")]
         public decimal BookPrice { get; set; }
     }
 }
