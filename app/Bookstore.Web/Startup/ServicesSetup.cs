@@ -64,7 +64,7 @@ namespace Bookstore.Web.Startup
 //                Console.WriteLine($"Reading db credentials from secret {dbSecretId}");
 //
 //                // Read the db secrets posted into Secrets Manager by the CDK. The secret provides the host,
-//                // port, userid, and password, which we format into the final connection string for PostgreSQL.
+//                // port, userid, and password, which we format into the final connection string for SQL Server.
 //                // For this code to work locally, appsettings.json must contain an AWS object with profile and
 //                // region info. When deployed to an EC2 instance, credentials and region will be inferred from
 //                // the instance profile applied to the instance.
@@ -90,14 +90,11 @@ namespace Bookstore.Web.Startup
 //                    PropertyNameCaseInsensitive = true
 //                });
 //
-//                // Connection string is now built directly using NpgsqlConnectionStringBuilder
+//                var partialConnString = $"Server={dbSecrets.Host},{dbSecrets.Port}; Initial Catalog=BobsUsedBookStore;MultipleActiveResultSets=true; Integrated Security=false";
 //
-//                var builder = new NpgsqlConnectionStringBuilder
+//                var builder = new SqlConnectionStringBuilder(partialConnString)
 //                {
-//                    Host = dbSecrets.Host,
-//                    Port = int.Parse(dbSecrets.Port),
-//                    Database = "postgres",
-//                    Username = dbSecrets.Username,
+//                    UserID = dbSecrets.Username,
 //                    Password = dbSecrets.Password
 //                };
 //

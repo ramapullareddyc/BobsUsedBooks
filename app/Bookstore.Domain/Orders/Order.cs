@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Customers;
@@ -28,7 +31,7 @@ namespace Bookstore.Domain.Orders
         public IEnumerable<OrderItem> OrderItems => orderItems;
 
         [Column("DeliveryDate")]
-        public DateTime DeliveryDate { get; set; } = DateTime.Now.AddDays(7);
+        public DateTime DeliveryDate { get; set; } = DateTime.UtcNow.AddDays(7);
 
         [Column("OrderStatus")]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
