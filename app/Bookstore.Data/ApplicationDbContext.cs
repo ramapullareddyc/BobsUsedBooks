@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Bookstore.Domain.Addresses;
 using Bookstore.Domain.Books;
 using Bookstore.Domain.Carts;
@@ -42,21 +42,7 @@ namespace Bookstore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>().HasIndex(x => x.Sub).IsUnique();
-
-            modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Book>().HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Book>().HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Book>().HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Offer>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Offer>().HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Offer>().HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Offer>().HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Order>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
-
-            // PostgreSQL schema and column mappings
+            // Table and column mappings for Address entity
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.ToTable("address", "public");
@@ -74,6 +60,7 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
             });
 
+            // Table and column mappings for Book entity
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.ToTable("book", "public");
@@ -95,6 +82,7 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
             });
 
+            // Table and column mappings for Customer entity
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.ToTable("customer", "public");
@@ -109,8 +97,10 @@ namespace Bookstore.Data
                 entity.Property(e => e.CreatedBy).HasColumnName("createdby");
                 entity.Property(e => e.CreatedOn).HasColumnName("createdon");
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
+                entity.HasIndex(x => x.Sub).IsUnique();
             });
 
+            // Table and column mappings for Order entity
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.ToTable("order", "public");
@@ -119,11 +109,15 @@ namespace Bookstore.Data
                 entity.Property(e => e.AddressId).HasColumnName("addressid");
                 entity.Property(e => e.DeliveryDate).HasColumnName("deliverydate");
                 entity.Property(e => e.OrderStatus).HasColumnName("orderstatus");
+                entity.Property(e => e.Tax).HasColumnName("tax");
+                entity.Property(e => e.SubTotal).HasColumnName("subtotal");
+                entity.Property(e => e.Total).HasColumnName("total");
                 entity.Property(e => e.CreatedBy).HasColumnName("createdby");
                 entity.Property(e => e.CreatedOn).HasColumnName("createdon");
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
             });
 
+            // Table and column mappings for ShoppingCart entity
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
                 entity.ToTable("shoppingcart", "public");
@@ -134,6 +128,7 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
             });
 
+            // Table and column mappings for ShoppingCartItem entity
             modelBuilder.Entity<ShoppingCartItem>(entity =>
             {
                 entity.ToTable("shoppingcartitem", "public");
@@ -147,6 +142,7 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
             });
 
+            // Table and column mappings for OrderItem entity
             modelBuilder.Entity<OrderItem>(entity =>
             {
                 entity.ToTable("orderitem", "public");
@@ -159,6 +155,7 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
             });
 
+            // Table and column mappings for Offer entity
             modelBuilder.Entity<Offer>(entity =>
             {
                 entity.ToTable("offer", "public");
@@ -181,6 +178,7 @@ namespace Bookstore.Data
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
             });
 
+            // Table and column mappings for ReferenceDataItem entity
             modelBuilder.Entity<ReferenceDataItem>(entity =>
             {
                 entity.ToTable("referencedata", "public");
@@ -191,6 +189,19 @@ namespace Bookstore.Data
                 entity.Property(e => e.CreatedOn).HasColumnName("createdon");
                 entity.Property(e => e.UpdatedOn).HasColumnName("updatedon");
             });
+
+            // Preserve existing relationship configurations
+            modelBuilder.Entity<Book>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Book>().HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Book>().HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Book>().HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Offer>().HasOne(x => x.Publisher).WithMany().HasForeignKey(x => x.PublisherId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Offer>().HasOne(x => x.BookType).WithMany().HasForeignKey(x => x.BookTypeId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Offer>().HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Offer>().HasOne(x => x.Condition).WithMany().HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
 
             PopulateDatabase(modelBuilder);
 
