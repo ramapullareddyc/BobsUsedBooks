@@ -1,4 +1,4 @@
-﻿using Amazon.Rekognition;
+using Amazon.Rekognition;
 using Amazon.S3;
 using Amazon.SecretsManager.Model;
 using Amazon.SecretsManager;
@@ -13,8 +13,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Npgsql;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Bookstore.Web.Startup

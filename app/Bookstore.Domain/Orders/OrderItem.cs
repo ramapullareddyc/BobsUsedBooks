@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Bookstore.Domain.Books;
+﻿using Bookstore.Domain.Books;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("OrderItem", Schema = "dbo")]
+    [Table("OrderItem", Schema = "public")]
     public class OrderItem : Entity
     {
         // This private constructor is required by EF Core
