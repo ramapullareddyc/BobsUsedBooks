@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Bookstore.Domain.Carts
 {
-    [Table("shopping_cart", Schema = "dbo")]
+    [Table("shopping_cart", Schema = "public")]
     public class ShoppingCart : Entity
     {
         public List<ShoppingCartItem> ShoppingCartItems { get; private set; } = new();

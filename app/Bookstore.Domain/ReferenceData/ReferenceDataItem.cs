@@ -2,7 +2,7 @@
 
 namespace Bookstore.Domain.ReferenceData
 {
-    [Table("reference_data", Schema = "dbo")]
+    [Table("reference_data", Schema = "public")]
     public class ReferenceDataItem : Entity
     {
         // An empty constructor is required by EF Core

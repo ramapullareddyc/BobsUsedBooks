@@ -18,8 +18,8 @@ namespace Bookstore.Domain
         [Column("updated_on")]
         public DateTime UpdatedOn { get; set; } = DateTime.UtcNow;
 
-        [Timestamp]
         [Column("row_version")]
+        [Timestamp]
         public byte[] RowVersion { get; set; }
 
         public bool IsNewEntity()

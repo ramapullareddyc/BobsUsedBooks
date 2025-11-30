@@ -3,7 +3,7 @@ using Bookstore.Domain.Books;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("order_item", Schema = "dbo")]
+    [Table("order_item", Schema = "public")]
     public class OrderItem : Entity
     {
         // This private constructor is required by EF Core

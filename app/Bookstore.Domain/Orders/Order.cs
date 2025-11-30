@@ -8,7 +8,7 @@ using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("order", Schema = "dbo")]
+    [Table("order", Schema = "public")]
     public class Order : Entity
     {
         public Order(int customerId, int addressId)
@@ -35,13 +35,10 @@ namespace Bookstore.Domain.Orders
         [Column("order_status")]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 
-        [NotMapped]
         public decimal Tax => SubTotal * 0.1m;
 
-        [NotMapped]
         public decimal SubTotal => OrderItems.Sum(x => x.Book.Price);
 
-        [NotMapped]
         public decimal Total => SubTotal + Tax;
 
         public void AddOrderItem(Book book, int quantity)
