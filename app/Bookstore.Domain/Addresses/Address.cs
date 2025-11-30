@@ -1,9 +1,9 @@
-﻿using Bookstore.Domain.Customers;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Addresses
 {
-    [Table("addresses", Schema = "public")]
+    [Table("address", Schema = "public")]
     public class Address : Entity
     {
         // An empty constructor is required by EF Core
