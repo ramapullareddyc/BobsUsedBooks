@@ -1,11 +1,10 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Books
 {
-    [Table("Book", Schema = "dbo")]
+    [Table("Book", Schema = "public")]
     public class Book : Entity
     {
         public const int LowBookThreshold = 5;
@@ -51,22 +50,18 @@ namespace Bookstore.Domain.Books
         public string ISBN { get; set; }
 
         public ReferenceDataItem Publisher { get; set; }
-        
         [Column("PublisherId")]
         public int PublisherId { get; set; }
 
         public ReferenceDataItem BookType { get; set; }
-        
         [Column("BookTypeId")]
         public int BookTypeId { get; set; }
 
         public ReferenceDataItem Genre { get; set; }
-        
         [Column("GenreId")]
         public int GenreId { get; set; }
 
         public ReferenceDataItem Condition { get; set; }
-        
         [Column("ConditionId")]
         public int ConditionId { get; set; }
 
