@@ -4,7 +4,7 @@ using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Books
 {
-    [Table("Book", Schema = "public")]
+    [Table("Book", Schema = "dbo")]
     public class Book : Entity
     {
         public const int LowBookThreshold = 5;

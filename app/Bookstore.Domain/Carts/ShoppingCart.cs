@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Bookstore.Domain.Carts
@@ -8,6 +9,7 @@ namespace Bookstore.Domain.Carts
     {
         public List<ShoppingCartItem> ShoppingCartItems { get; private set; } = new();
 
+        [Column("CorrelationId")]
         public string CorrelationId { get; set; }
 
         public ShoppingCart(string correlationId)

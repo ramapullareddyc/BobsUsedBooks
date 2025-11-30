@@ -91,9 +91,9 @@ namespace Bookstore.Web.Startup
 //
 //                var partialConnString = $"Server={dbSecrets.Host},{dbSecrets.Port}; Initial Catalog=BobsUsedBookStore;MultipleActiveResultSets=true; Integrated Security=false";
 //
-//                var builder = new NpgsqlConnectionStringBuilder(partialConnString)
+//                var builder = new SqlConnectionStringBuilder(partialConnString)
 //                {
-//                    Username = dbSecrets.Username,
+//                    UserID = dbSecrets.Username,
 //                    Password = dbSecrets.Password
 //                };
 //
