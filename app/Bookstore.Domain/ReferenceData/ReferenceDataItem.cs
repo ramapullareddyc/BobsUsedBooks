@@ -14,10 +14,8 @@ namespace Bookstore.Domain.ReferenceData
             Text = text;
         }
 
-        [Column("DataType")]
         public ReferenceDataType DataType { get; set; }
 
-        [Column("Text")]
         public string Text { get; set; }
     }
 }
