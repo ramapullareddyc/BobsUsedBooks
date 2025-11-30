@@ -5,7 +5,7 @@ using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Offers
 {
-    [Table("offer", Schema = "dbo")]
+    [Table("Offer", Schema = "dbo")]
     public class Offer : Entity
     {
         public Offer(
@@ -30,53 +30,53 @@ namespace Bookstore.Domain.Offers
             BookPrice = bookPrice;
         }
 
-        [Column("author")]
+        [Column("Author")]
         public string Author { get; set; }
 
-        [Column("isbn")]
+        [Column("ISBN")]
         public string ISBN { get; set; }
 
-        [Column("bookname")]
+        [Column("BookName")]
         public string BookName { get; set; }
 
-        [Column("fronturl")]
+        [Column("FrontUrl")]
         public string? FrontUrl { get; set; }
 
         public ReferenceDataItem Genre { get; set; }
         
-        [Column("genreid")]
+        [Column("GenreId")]
         public int GenreId { get; set; }
 
         public ReferenceDataItem Condition { get; set; }
         
-        [Column("conditionid")]
+        [Column("ConditionId")]
         public int ConditionId { get; set; }
 
         public ReferenceDataItem Publisher { get; set; }
         
-        [Column("publisherid")]
+        [Column("PublisherId")]
         public int PublisherId { get; set; }
 
         public ReferenceDataItem BookType { get; set; }
         
-        [Column("booktypeid")]
+        [Column("BookTypeId")]
         public int BookTypeId { get; set; }
 
-        [Column("summary")]
+        [Column("Summary")]
         public string? Summary { get; set; }
 
-        [Column("offerstatus")]
+        [Column("OfferStatus")]
         public OfferStatus OfferStatus { get; set; } = OfferStatus.PendingApproval;
 
-        [Column("comment")]
+        [Column("Comment")]
         public string? Comment { get; set; }
 
         public Customer Customer { get; set; }
         
-        [Column("customerid")]
+        [Column("CustomerId")]
         public int CustomerId { get; set; }
 
-        [Column("bookprice")]
+        [Column("BookPrice")]
         public decimal BookPrice { get; set; }
     }
 }
