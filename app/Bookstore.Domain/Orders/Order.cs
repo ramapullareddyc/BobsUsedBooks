@@ -8,7 +8,7 @@ using Bookstore.Domain.Customers;
 
 namespace Bookstore.Domain.Orders
 {
-    [Table("Order", Schema = "public")]
+    [Table("Order", Schema = "dbo")]
     public class Order : Entity
     {
         public Order(int customerId, int addressId)
@@ -30,7 +30,7 @@ namespace Bookstore.Domain.Orders
         public IEnumerable<OrderItem> OrderItems => orderItems;
 
         [Column("DeliveryDate")]
-        public DateTime DeliveryDate { get; set; } = DateTime.UtcNow.AddDays(7);
+        public DateTime DeliveryDate { get; set; } = DateTime.Now.AddDays(7);
 
         [Column("OrderStatus")]
         public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
