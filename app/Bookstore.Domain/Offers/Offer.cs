@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Bookstore.Domain.Customers;
 using Bookstore.Domain.ReferenceData;
 
 namespace Bookstore.Domain.Offers
 {
-    [Table("Offer", Schema = "dbo")]
+    [Table("Offer", Schema = "public")]
     public class Offer : Entity
     {
         public Offer(

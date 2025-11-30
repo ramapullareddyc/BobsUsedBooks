@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Domain.ReferenceData
 {
-    [Table("ReferenceData", Schema = "dbo")]
+    [Table("ReferenceData", Schema = "public")]
     public class ReferenceDataItem : Entity
     {
         // An empty constructor is required by EF Core
